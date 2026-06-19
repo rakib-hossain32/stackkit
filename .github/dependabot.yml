@@ -11,10 +11,16 @@ updates:
     commit-message:
       prefix: "chore"
       prefix-development: "chore"
+    ignore:
+      - dependency-name: "@babel/core"
+        versions: [">=8"]
     groups:
       babel:
         patterns:
           - "@babel/*"
+      fumadocs:
+        patterns:
+          - "fumadocs-*"
       typescript-eslint:
         patterns:
           - "@typescript-eslint/*"
