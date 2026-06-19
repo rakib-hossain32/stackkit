@@ -23,7 +23,7 @@ npm run dev
 
 ## Features
 
-- Next.js 15 with App Router
+- Next.js 16 with App Router
 - TypeScript for type safety
 - Tailwind CSS for styling
 - ESLint for code quality
