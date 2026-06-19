@@ -22,6 +22,8 @@ updates:
         versions: [">=8"]
       - dependency-name: "vitest"
         versions: [">=4"]
+      - dependency-name: "eslint"
+        versions: [">=10"]
     groups:
       babel:
         patterns:
