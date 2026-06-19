@@ -77,11 +77,3 @@ export interface ProjectInfo {
   hasDatabase: boolean;
   rootDir: string;
 }
-
-export interface CLIOptions {
-  force?: boolean;
-  dryRun?: boolean;
-  yes?: boolean;
-  noInstall?: boolean;
-  pm?: "npm" | "yarn" | "pnpm" | "bun";
-}

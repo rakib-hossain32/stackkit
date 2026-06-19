@@ -9,7 +9,7 @@ const MESSAGES = {
   NO_PACKAGE_JSON: "No package.json found in current directory or any parent directory.",
   UNSUPPORTED_PROJECT: "Unsupported project type or unable to detect framework.",
   NODE_TOO_OLD: (version: string) =>
-    `Node.js version ${version} is not supported. Minimum required: Node 18.`,
+    `Node.js version ${version} is not supported. Minimum required: Node 20.`,
   NODE_WARNING: (version: string) =>
     `Node.js version ${version} is supported but Node 20+ is recommended.`,
   NODE_SUCCESS: (version: string) => `Node.js version ${version} is supported.`,
@@ -29,7 +29,7 @@ const MESSAGES = {
   ESLINT_CONFIG_FOUND: "ESLint config found",
   BUILD_SCRIPT_MISSING: "Build script missing in package.json",
   BUILD_SCRIPT_FOUND: "Build script found",
-  DEPENDENCY_OUTDATED: (deps: string[]) => `Outdated dependencies: ${deps.join(", ")}`,
+  DEPENDENCY_OUTDATED: (deps: string[]) => `Pinned dependencies (no ^/~ range): ${deps.join(", ")}`,
   DEPENDENCY_UP_TO_DATE: "Dependencies are up to date",
   GIT_REPO_MISSING: "Not a git repository (recommended for version control)",
   GIT_REPO_FOUND: "Git repository initialized",
@@ -81,7 +81,7 @@ interface DoctorReport {
     present: string[];
   };
   dependencies: {
-    outdated: string[];
+    pinned: string[];
   };
   conflicts: string[];
   checks: CheckResult[];
@@ -202,7 +202,7 @@ async function runDoctorChecks(): Promise<DoctorReport> {
     },
     env: envCheck.envStatus,
     dependencies: {
-      outdated: dependencyCheck.outdated,
+      pinned: dependencyCheck.pinned,
     },
     conflicts,
     checks,
@@ -290,15 +290,10 @@ function checkNodeVersion(): CheckResult {
   const version = process.version;
   const majorVersion = parseInt(version.slice(1).split(".")[0]);
 
-  if (majorVersion < 18) {
+  if (majorVersion < 20) {
     return {
       status: "error",
       message: MESSAGES.NODE_TOO_OLD(version),
-    };
-  } else if (majorVersion < 20) {
-    return {
-      status: "warning",
-      message: MESSAGES.NODE_WARNING(version),
     };
   } else {
     return {
@@ -537,21 +532,21 @@ async function checkConfigFiles(
 
 async function checkDependencies(
   packageJson: PackageJson,
-): Promise<{ status: "success" | "warning" | "error"; message: string; outdated: string[] }> {
-  const outdated: string[] = [];
+): Promise<{ status: "success" | "warning" | "error"; message: string; pinned: string[] }> {
+  const pinned: string[] = [];
   const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
   for (const [name, version] of Object.entries(deps || {})) {
     const isFlexibleVersion =
       typeof version === "string" && (version.startsWith("^") || version.startsWith("~"));
     if (!isFlexibleVersion) {
-      outdated.push(name);
+      pinned.push(name);
     }
   }
   return {
-    status: outdated.length > 0 ? "warning" : "success",
+    status: pinned.length > 0 ? "warning" : "success",
     message:
-      outdated.length > 0 ? MESSAGES.DEPENDENCY_OUTDATED(outdated) : MESSAGES.DEPENDENCY_UP_TO_DATE,
-    outdated,
+      pinned.length > 0 ? MESSAGES.DEPENDENCY_OUTDATED(pinned) : MESSAGES.DEPENDENCY_UP_TO_DATE,
+    pinned,
   };
 }
 
@@ -690,9 +685,9 @@ function printDoctorReport(report: DoctorReport, verbose: boolean): void {
   }
   logger.newLine();
 
-  if (report.dependencies.outdated.length > 0) {
+  if (report.dependencies.pinned.length > 0) {
     logger.log(chalk.bold("Dependencies"));
-    logger.warn(MESSAGES.DEPENDENCY_OUTDATED(report.dependencies.outdated));
+    logger.warn(MESSAGES.DEPENDENCY_OUTDATED(report.dependencies.pinned));
     logger.log("  Hint: Run package manager update command");
     logger.newLine();
   }

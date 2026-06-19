@@ -932,9 +932,18 @@ function deepMerge(
         output[key] = source[key];
       }
     } else if (Array.isArray(source[key])) {
-      output[key] = Array.from(
-        new Set([...((target[key] as unknown[]) || []), ...(source[key] as unknown[])]),
-      );
+      const targetArr = (target[key] as unknown[]) || [];
+      const sourceArr = source[key] as unknown[];
+      const merged = [...targetArr];
+      for (const item of sourceArr) {
+        if (typeof item === "object" && item !== null) {
+          const exists = merged.some((m) => JSON.stringify(m) === JSON.stringify(item));
+          if (!exists) merged.push(item);
+        } else {
+          if (!merged.includes(item)) merged.push(item);
+        }
+      }
+      output[key] = merged;
     } else {
       output[key] = source[key];
     }

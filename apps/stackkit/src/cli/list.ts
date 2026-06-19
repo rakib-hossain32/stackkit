@@ -23,8 +23,7 @@ export async function listCommand(options: ListOptions = {}): Promise<void> {
     let hasContent = false;
 
     if (showFrameworks) {
-      let frameworks = [] as Array<{ name: string; displayName: string }>;
-      frameworks = await getAvailableFrameworks();
+      const frameworks = await getAvailableFrameworks();
       if (frameworks.length > 0) {
         hasContent = true;
         printFrameworks(frameworks);
@@ -32,8 +31,7 @@ export async function listCommand(options: ListOptions = {}): Promise<void> {
     }
 
     if (showModules) {
-      let modules = [] as ModuleMetadata[];
-      modules = await getAvailableModules();
+      const modules = await getAvailableModules();
       if (modules.length > 0) {
         hasContent = true;
         printModules(modules);

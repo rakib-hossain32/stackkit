@@ -1,30 +1,12 @@
 import fs from "fs-extra";
 import path from "path";
-import { EXCLUDE_FROM_COPY, FILE_NAMES } from "../constants";
+import { FILE_NAMES } from "../constants";
 import { logger } from "../ui/logger";
 
 export interface PackageJsonConfig {
   dependencies?: Record<string, string>;
   devDependencies?: Record<string, string>;
   scripts?: Record<string, string>;
-}
-
-export async function copyBaseFramework(
-  templatesDir: string,
-  targetDir: string,
-  framework: string,
-): Promise<void> {
-  const baseDir = path.join(templatesDir, framework);
-
-  if (!(await fs.pathExists(baseDir))) {
-    throw new Error(
-      `Base template not found for framework: ${framework}\n` + `Expected at: ${baseDir}`,
-    );
-  }
-
-  await fs.copy(baseDir, targetDir, {
-    filter: (src) => !EXCLUDE_FROM_COPY.some((entry) => entry === path.basename(src)),
-  });
 }
 
 export async function mergePackageJson(

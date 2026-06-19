@@ -25,6 +25,7 @@ dist/
 # Build artifacts from CLIs
 apps/*/templates/
 apps/*/modules/
+apps/stackkit/meta.json
 
 # misc
 .DS_Store

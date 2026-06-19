@@ -195,7 +195,7 @@ async function getProjectConfig(
           throw new Error(`${authMeta.displayName || auth} is not supported on ${finalFramework}`);
         }
 
-        const dbName = database === "prisma" ? "prisma" : database === "none" ? "none" : "other";
+        const dbName = database === "prisma" ? "prisma" : database === "none" ? "none" : database;
         if (
           authMeta.compatibility &&
           authMeta.compatibility.databases &&

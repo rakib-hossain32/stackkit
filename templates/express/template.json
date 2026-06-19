@@ -11,7 +11,7 @@
     "src/",
     ".env.example",
     ".gitignore",
-    "eslint.config.cjs",
+    "eslint.config.mjs",
     "package.json",
     "README.md",
     "tsconfig.json"
@@ -25,7 +25,7 @@
     "start:prod": "cross-env NODE_ENV=production node dist/server.js"
   },
   "jsScripts": {
-    "dev": "tsx --watch src/server.js",
+    "dev": "tsx watch src/server.js",
     "build": "echo 'No build step for JavaScript'",
     "lint": "eslint src --ext .js",
     "lint:fix": "eslint src --ext .js --fix",

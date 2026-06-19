@@ -127,5 +127,5 @@ export const CLI_COLORS = {
 
 export const PACKAGE_NAME = "stackkit" as const;
 
-export const DEFAULT_PACKAGE_MANAGER = PACKAGE_MANAGERS.NPM;
+export const DEFAULT_PACKAGE_MANAGER = PACKAGE_MANAGERS.PNPM;
 export const DEFAULT_LANGUAGE = LANGUAGES.TYPESCRIPT;

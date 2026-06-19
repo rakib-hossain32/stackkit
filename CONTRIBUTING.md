@@ -23,6 +23,12 @@ pnpm install && pnpm build
 ## Testing your changes
 
 ```bash
+# Run unit tests
+pnpm test
+
+# Run tests with verbose output
+pnpm test:ci
+
 # Test project creation
 cd apps/stackkit && npm run build
 node bin/stackkit.js my-test-app
@@ -31,6 +37,8 @@ node bin/stackkit.js my-test-app
 cd /tmp/my-test-app
 node /path/to/bin/stackkit.js add
 ```
+
+Unit tests use [Vitest](https://vitest.dev) and live in `*.test.ts` files alongside the source code.
 
 ## Code style
 

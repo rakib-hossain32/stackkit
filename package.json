@@ -18,6 +18,7 @@
   },
   "license": "MIT",
   "author": "Tariqul Islam",
+  "sideEffects": false,
   "workspaces": [
     "apps/*"
   ],
@@ -30,16 +31,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "test": "pnpm --filter stackkit test",
-    "test:create": "pnpm --filter stackkit test:create",
-    "test:add": "pnpm --filter stackkit test:add",
-    "test:doctor": "pnpm --filter stackkit test:doctor",
-    "test:list": "pnpm --filter stackkit test:list",
-    "test:version": "pnpm --filter stackkit test:version",
-    "test:help": "pnpm --filter stackkit test:help",
-    "test:help:create": "pnpm --filter stackkit test:help:create",
-    "test:help:add": "pnpm --filter stackkit test:help:add",
-    "test:help:doctor": "pnpm --filter stackkit test:help:doctor",
-    "test:help:list": "pnpm --filter stackkit test:help:list",
+    "test:ci": "pnpm --filter stackkit test:ci",
     "test:docs": "cd apps/docs && pnpm run types:check"
   },
   "devDependencies": {
@@ -47,12 +39,13 @@
     "@types/node": "^25.0.8",
     "eslint": "^9.39.2",
     "prettier": "^3.2.4",
-    "typescript": "^5.3.3",
+    "turbo": "^2.5.2",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.52.0"
   },
   "engines": {
     "node": ">=20.0.0",
-    "pnpm": ">=8.0.0"
+    "pnpm": ">=9.0.0"
   },
-  "packageManager": "pnpm@8.15.0"
+  "packageManager": "pnpm@9.15.4"
 }

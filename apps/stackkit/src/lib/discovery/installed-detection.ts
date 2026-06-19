@@ -28,14 +28,12 @@ async function collectModulePkgNames(modulePath: string): Promise<string[]> {
   if (await fs.pathExists(genPath)) {
     const gen = await readJsonSafe<{ operations?: Array<Record<string, unknown>> }>(genPath);
     if (gen && Array.isArray(gen.operations)) {
-      if (Array.isArray(gen.operations)) {
-        for (const op of gen.operations) {
-          if (op.dependencies && typeof op.dependencies === "object") {
-            pkgNames.push(...Object.keys(op.dependencies));
-          }
-          if (op.devDependencies && typeof op.devDependencies === "object") {
-            pkgNames.push(...Object.keys(op.devDependencies));
-          }
+      for (const op of gen.operations) {
+        if (op.dependencies && typeof op.dependencies === "object") {
+          pkgNames.push(...Object.keys(op.dependencies));
+        }
+        if (op.devDependencies && typeof op.devDependencies === "object") {
+          pkgNames.push(...Object.keys(op.devDependencies));
         }
       }
     }
@@ -44,7 +42,7 @@ async function collectModulePkgNames(modulePath: string): Promise<string[]> {
   const modJson = path.join(modulePath, "module.json");
   if (await fs.pathExists(modJson)) {
     const moduleJson = await readJsonSafe<ModuleJsonLike>(modJson);
-    if (moduleJson && typeof moduleJson === "object") {
+    if (moduleJson) {
       const deps = moduleJson.dependencies || {};
       if (typeof deps === "object") pkgNames.push(...Object.keys(deps));
       const devDeps = moduleJson.devDependencies || {};
