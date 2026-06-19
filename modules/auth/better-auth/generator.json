@@ -105,15 +105,15 @@
       "type": "add-dependency",
       "condition": { "framework": "express" },
       "dependencies": {
-        "ejs": "^4.0.1",
+        "ejs": "^6.0.1",
         "jsonwebtoken": "^9.0.3",
-        "better-auth": "^1.4.12",
-        "nodemailer": "^7.0.12"
+        "better-auth": "^1.6.19",
+        "nodemailer": "^9.0.1"
       },
       "devDependencies": {
         "@types/ejs": "^3.1.5",
         "@types/jsonwebtoken": "^9.0.10",
-        "@types/nodemailer": "^7.0.5"
+        "@types/nodemailer": "^8.0.1"
       }
     },
     {
@@ -336,10 +336,10 @@
       "type": "add-dependency",
        "condition": { "framework": ["react", "nextjs"] },
       "dependencies": {
-        "better-auth": "^1.4.12",
-        "zod": "^4.3.6",
-        "@hookform/resolvers": "^3.0.0",
-        "react-hook-form": "^7.71.2"
+        "better-auth": "^1.6.19",
+        "zod": "^4.4.3",
+        "@hookform/resolvers": "^5.4.0",
+        "react-hook-form": "^7.79.0"
       }
     },
     {

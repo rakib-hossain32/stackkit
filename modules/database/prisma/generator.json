@@ -22,7 +22,7 @@
     {
       "type": "add-dependency",
       "dependencies": {
-        "dotenv": "^17.2.3"
+        "dotenv": "^17.4.2"
       }
     },
     {
@@ -39,12 +39,12 @@
       "type": "add-dependency",
       "condition": { "prismaProvider": "postgresql" },
       "dependencies": {
-        "@prisma/client": "^7.4.2",
-        "@prisma/adapter-pg": "^7.0.0",
-        "pg": "^8.0.0"
+        "@prisma/client": "^7.8.0",
+        "@prisma/adapter-pg": "^7.8.0",
+        "pg": "^8.22.0"
       },
       "devDependencies": {
-        "prisma": "^7.4.2"
+        "prisma": "^7.8.0"
       }
     },
     {
@@ -58,12 +58,12 @@
       "type": "add-dependency",
       "condition": { "prismaProvider": "mysql" },
       "dependencies": {
-        "@prisma/client": "^7.4.2",
-        "@prisma/adapter-mariadb": "^7.0.0",
-        "mysql2": "^3.0.0"
+        "@prisma/client": "^7.8.0",
+        "@prisma/adapter-mariadb": "^7.8.0",
+        "mysql2": "^3.22.5"
       },
       "devDependencies": {
-        "prisma": "^7.4.2"
+        "prisma": "^7.8.0"
       }
     },
     {
@@ -77,12 +77,12 @@
       "type": "add-dependency",
       "condition": { "prismaProvider": "sqlite" },
       "dependencies": {
-        "@prisma/client": "^7.4.2",
-        "@prisma/adapter-better-sqlite3": "^7.0.0",
-        "better-sqlite3": "^9.0.0"
+        "@prisma/client": "^7.8.0",
+        "@prisma/adapter-better-sqlite3": "^7.8.0",
+        "better-sqlite3": "^12.11.1"
       },
       "devDependencies": {
-        "prisma": "^7.4.2"
+        "prisma": "^7.8.0"
       }
     },
     {
@@ -96,10 +96,10 @@
       "type": "add-dependency",
       "condition": { "prismaProvider": "mongodb" },
       "dependencies": {
-        "@prisma/client": "^7.4.2"
+        "@prisma/client": "^7.8.0"
       },
       "devDependencies": {
-        "prisma": "^7.4.2"
+        "prisma": "^7.8.0"
       }
     },
     {
