@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { GithubIcon } from "./icons";
 
 const footerLinks = {
   Resources: [
@@ -54,6 +55,17 @@ export function Footer() {
             <p className="text-sm leading-relaxed text-fd-muted-foreground">
               Open-source scaffolding for modern web projects. Your code, your rules.
             </p>
+
+            <div className="flex items-center gap-4 mt-4">
+              <Link
+                href="https://github.com/tariqul420/stackkit"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-fd-foreground underline underline-offset-2"
+              >
+                <GithubIcon className="inline h-4 w-4" />
+              </Link>
+            </div>
           </div>
 
           {/* Link groups */}
@@ -85,29 +97,9 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col gap-2 border-t border-fd-border pt-6 text-xs text-fd-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} StackKit. Released under the MIT License.</p>
-          <p>
-            Built with{" "}
-            <a
-              href="https://fumadocs.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-fd-foreground underline underline-offset-2"
-            >
-              Fumadocs
-            </a>
-            {" & "}
-            <a
-              href="https://nextjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-fd-foreground underline underline-offset-2"
-            >
-              Next.js
-            </a>
-          </p>
-        </div>
+        <p className="mt-10 border-t border-fd-border pt-6 text-xs text-fd-muted-foreground text-center">
+          © {year} StackKit. Released under the MIT License.
+        </p>
       </div>
     </footer>
   );

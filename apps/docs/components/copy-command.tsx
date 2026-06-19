@@ -3,20 +3,7 @@
 import { cn } from "@/lib/cn";
 import { Check, Copy } from "lucide-react";
 import { useState } from "react";
-
-function NpmIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      role="img"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      className={cn("fill-current", className)}
-    >
-      <title>npm</title>
-      <path d="M20,4H4V20h8V8h4V20h4V4" />
-    </svg>
-  );
-}
+import { NpmIcon } from "@/components/icons";
 
 export default function CopyCommand() {
   const [copied, setCopied] = useState(false);
@@ -30,7 +17,7 @@ export default function CopyCommand() {
 
   return (
     <div className="mt-16 w-full max-w-3xl">
-      <div className="relative overflow-hidden rounded-xl border border-fd-border bg-fd-card/80 shadow-md backdrop-blur-sm">
+      <div className="relative overflow-hidden rounded-xl border border-fd-border bg-fd-card/80 backdrop-blur-sm">
         <div className="flex items-center gap-2 border-b border-fd-border bg-fd-muted/50 px-5 py-3">
           <div className="flex gap-1.5">
             <div className="size-3 rounded-full bg-red-500" />

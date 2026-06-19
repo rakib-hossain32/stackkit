@@ -217,8 +217,8 @@ export function getCompatibleAuthOptions(
   framework: string,
   database: string,
   frameworksMeta?: ModuleMetadata[],
-): Array<{ name: string; value: string; description?: string }> {
-  const compatible: Array<{ name: string; value: string; description?: string }> = [];
+): Array<{ title: string; value: string; description?: string }> {
+  const compatible: Array<{ title: string; value: string; description?: string }> = [];
 
   for (const auth of authModules) {
     if (auth.supportedFrameworks && !auth.supportedFrameworks.includes(framework)) {
@@ -246,13 +246,13 @@ export function getCompatibleAuthOptions(
     if (!dbCompatible && !explicitlyAllowedByFramework) continue;
 
     compatible.push({
-      name: auth.displayName,
+      title: auth.displayName,
       value: auth.name,
       description: auth.description || "",
     });
   }
 
-  compatible.push({ name: "None", value: "none" });
+  compatible.push({ title: "None", value: "none" });
 
   return compatible;
 }
@@ -260,8 +260,8 @@ export function getCompatibleAuthOptions(
 export function getDatabaseChoices(
   databases: ModuleMetadata[],
   framework: string,
-): Array<{ name: string; value: string }> {
-  const choices: Array<{ name: string; value: string }> = [];
+): Array<{ title: string; value: string }> {
+  const choices: Array<{ title: string; value: string }> = [];
 
   for (const db of databases) {
     if (db.supportedFrameworks && !db.supportedFrameworks.includes(framework)) {
@@ -273,18 +273,18 @@ export function getDatabaseChoices(
       if (providers.length > 0) {
         for (const p of providers)
           choices.push({
-            name: `Prisma (${p.charAt(0).toUpperCase() + p.slice(1)})`,
+            title: `Prisma (${p.charAt(0).toUpperCase() + p.slice(1)})`,
             value: `prisma-${p}`,
           });
       } else {
-        choices.push({ name: "Prisma", value: "prisma" });
+        choices.push({ title: "Prisma", value: "prisma" });
       }
     } else {
-      choices.push({ name: db.displayName || db.name, value: db.name });
+      choices.push({ title: db.displayName || db.name, value: db.name });
     }
   }
 
-  choices.push({ name: "None", value: "none" });
+  choices.push({ title: "None", value: "none" });
 
   return choices;
 }

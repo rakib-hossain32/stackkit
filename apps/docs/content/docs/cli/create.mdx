@@ -3,8 +3,8 @@ title: create
 description: Scaffold a new full-stack project with your choice of framework, database, authentication, and more.
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout';
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Callout } from "fumadocs-ui/components/callout";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 import { ModuleProviders } from "@/components/docs-meta";
 
 The `create` command is your entry point for every new project. It generates a complete, production-ready project structure in one step.
@@ -27,12 +27,12 @@ When you run `create` without flags, you'll be guided through the following choi
 
 1. **Framework** — Next.js, Express.js, or React
 2. **Database** — Prisma, Mongoose, or None
-3. **Database provider** — PostgreSQL, MySQL, SQLite, or MongoDB *(shown when Prisma is selected)*
+3. **Database provider** — PostgreSQL, MySQL, SQLite, or MongoDB _(shown when Prisma is selected)_
 4. **Authentication** — Better Auth, or None
 5. **UI library** — Shadcn UI, or None
 6. **Storage** — Cloudinary, or None
 7. **Language** — TypeScript or JavaScript
-8. **Package manager** — pnpm, npm, yarn, or bun *(auto-detected if a lockfile exists)*
+8. **Package manager** — pnpm, npm, yarn, or bun _(auto-detected if a lockfile exists)_
 9. **Initialize git** — Yes or No
 
 After you confirm, StackKit generates all the files, installs dependencies, and creates an initial git commit.
@@ -43,25 +43,25 @@ After you confirm, StackKit generates all the files, installs dependencies, and 
 
 The base framework for your project.
 
-| Value | Description |
-|-------|-------------|
-| `nextjs` | Next.js with App Router and TypeScript |
-| `express` | Node.js REST API with TypeScript |
-| `react` | Vite + React SPA with TypeScript |
+| Value     | Description                            |
+| --------- | -------------------------------------- |
+| `nextjs`  | Next.js with App Router and TypeScript |
+| `express` | Node.js REST API with TypeScript       |
+| `react`   | Vite + React SPA with TypeScript       |
 
 ### `--database, -d <value>`
 
 The database ORM or ODM to integrate.
 
-| Value | Description |
-|-------|-------------|
-| `prisma` | Prisma ORM (prompts for provider) |
-| `prisma-postgresql` | Prisma with PostgreSQL |
-| `prisma-mongodb` | Prisma with MongoDB |
-| `prisma-mysql` | Prisma with MySQL |
-| `prisma-sqlite` | Prisma with SQLite |
-| `mongoose` | Mongoose ODM for MongoDB (Express only) |
-| `none` | Skip database setup |
+| Value               | Description                             |
+| ------------------- | --------------------------------------- |
+| `prisma`            | Prisma ORM (prompts for provider)       |
+| `prisma-postgresql` | Prisma with PostgreSQL                  |
+| `prisma-mongodb`    | Prisma with MongoDB                     |
+| `prisma-mysql`      | Prisma with MySQL                       |
+| `prisma-sqlite`     | Prisma with SQLite                      |
+| `mongoose`          | Mongoose ODM for MongoDB (Express only) |
+| `none`              | Skip database setup                     |
 
 For Prisma provider details:
 
@@ -71,45 +71,47 @@ For Prisma provider details:
 
 The authentication library to integrate.
 
-| Value | Description |
-|-------|-------------|
+| Value         | Description                         |
+| ------------- | ----------------------------------- |
 | `better-auth` | Better Auth — TypeScript-first auth |
-| `none` | Skip authentication |
+| `none`        | Skip authentication                 |
 
 ### `--ui, -u <value>`
 
 A UI component library to add.
 
-| Value | Description |
-|-------|-------------|
+| Value    | Description                                          |
+| -------- | ---------------------------------------------------- |
 | `shadcn` | Shadcn UI with Tailwind CSS (Next.js and React only) |
 
 ### `--storage-provider <value>`
 
 File storage integration.
 
-| Value | Description |
-|-------|-------------|
+| Value        | Description                             |
+| ------------ | --------------------------------------- |
 | `cloudinary` | Cloudinary media uploads (Express only) |
 
 ### Other options
 
-| Flag | Description |
-|------|-------------|
-| `--language, -l` | `typescript` (default) or `javascript` |
-| `--package-manager, -p` | `pnpm`, `npm`, `yarn`, or `bun` |
-| `--yes, -y` | Accept all defaults (Next.js + Prisma PostgreSQL + Better Auth + TypeScript + pnpm) |
-| `--skip-install` | Generate files without installing packages |
-| `--no-git` | Skip git repository initialization |
+| Flag                    | Description                                                     |
+| ----------------------- | --------------------------------------------------------------- |
+| `--language, -l`        | `typescript` (default) or `javascript`                          |
+| `--package-manager, -p` | `pnpm`, `npm`, `yarn`, or `bun`                                 |
+| `--yes, -y`             | Accept all defaults (Next.js + Better Auth + TypeScript + pnpm) |
+| `--skip-install`        | Generate files without installing packages                      |
+| `--no-git`              | Skip git repository initialization                              |
 
 ## Examples
 
 **Interactive — recommended for first-time use:**
+
 ```bash
 npx stackkit@latest create my-app
 ```
 
 **Next.js with Prisma and Better Auth:**
+
 ```bash
 npx stackkit@latest create my-app \
   --framework nextjs \
@@ -118,6 +120,7 @@ npx stackkit@latest create my-app \
 ```
 
 **Express REST API with MongoDB:**
+
 ```bash
 npx stackkit@latest create my-api \
   --framework express \
@@ -126,6 +129,7 @@ npx stackkit@latest create my-api \
 ```
 
 **React frontend with Shadcn UI:**
+
 ```bash
 npx stackkit@latest create my-spa \
   --framework react \
@@ -133,6 +137,7 @@ npx stackkit@latest create my-spa \
 ```
 
 **Generate files only, install later:**
+
 ```bash
 npx stackkit@latest create my-app --skip-install
 cd my-app
@@ -140,6 +145,7 @@ pnpm install
 ```
 
 **Use all defaults:**
+
 ```bash
 npx stackkit@latest create my-app --yes
 ```
@@ -160,17 +166,18 @@ Every generated project includes:
 
 Not all modules work with every framework. Here's the full picture:
 
-| Module | Next.js | Express | React |
-|--------|:-------:|:-------:|:-----:|
-| Prisma | — | ✓ | — |
-| Mongoose | — | ✓ | — |
-| Better Auth | ✓ | ✓ | ✓ |
-| Shadcn UI | ✓ | — | ✓ |
-| Cloudinary | — | ✓ | — |
-| Components | ✓ | — | ✓ |
+| Module      | Next.js | Express | React |
+| ----------- | :-----: | :-----: | :---: |
+| Prisma      |    —    |    ✓    |   —   |
+| Mongoose    |    —    |    ✓    |   —   |
+| Better Auth |    ✓    |    ✓    |   ✓   |
+| Shadcn UI   |    ✓    |    —    |   ✓   |
+| Cloudinary  |    —    |    ✓    |   —   |
+| Components  |    ✓    |    —    |   ✓   |
 
 <Callout type="warn">
-  Better Auth on Express requires a database. The interactive prompt will enforce this — you can't select Better Auth without also selecting a database when the framework is Express.
+  Better Auth on Express requires a database. The interactive prompt will enforce this — you can't
+  select Better Auth without also selecting a database when the framework is Express.
 </Callout>
 
 ## Next steps

@@ -2,25 +2,7 @@ import Link from "next/link";
 import CopyCommand from "../../components/copy-command";
 import { GithubStarCount } from "../../components/github-star-count";
 import { getGithubStars } from "../../components/github-stars";
-
-const GithubIcon = () => (
-  <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden>
-    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-  </svg>
-);
-
-const ArrowRight = () => (
-  <svg
-    className="size-3.5"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2.5}
-    aria-hidden
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-  </svg>
-);
+import { ArrowRightIcon, GithubIcon } from "../../components/icons";
 
 const features = [
   {
@@ -106,26 +88,6 @@ export default async function HomePage() {
           }}
         />
 
-        {/* Glow orb — top center */}
-        <div
-          aria-hidden
-          className="animate-pulse-slow pointer-events-none absolute -top-48 left-1/2 -z-10 h-130 w-180 -translate-x-1/2 rounded-full bg-fd-primary/15 blur-3xl"
-        />
-
-        {/* Glow orb — bottom right */}
-        <div
-          aria-hidden
-          className="animate-drift pointer-events-none absolute -bottom-24 -right-24 -z-10 h-72 w-72 rounded-full bg-fd-primary/10 blur-3xl"
-          style={{ animationDelay: "3s" }}
-        />
-
-        {/* Glow orb — left */}
-        <div
-          aria-hidden
-          className="animate-drift pointer-events-none absolute top-1/3 -left-20 -z-10 h-56 w-56 rounded-full bg-fd-primary/8 blur-3xl"
-          style={{ animationDelay: "7s" }}
-        />
-
         <div className="relative mx-auto max-w-5xl">
           {/* Badge */}
           <div className="animate-fade-up mb-8 inline-flex items-center gap-2 rounded-full border border-fd-border bg-fd-card px-3.5 py-1 text-xs font-medium text-fd-muted-foreground">
@@ -161,7 +123,7 @@ export default async function HomePage() {
               href="/docs/getting-started/quickstart"
               className="inline-flex h-10 items-center gap-2 rounded-lg bg-fd-primary px-6 text-sm font-medium text-fd-primary-foreground transition-opacity hover:opacity-90"
             >
-              Get Started <ArrowRight />
+              Get Started <ArrowRightIcon className="size-3.5" />
             </Link>
             <a
               href="https://github.com/tariqul420/stackkit"
@@ -169,7 +131,7 @@ export default async function HomePage() {
               rel="noopener noreferrer"
               className="inline-flex h-10 items-center gap-2 rounded-lg border border-fd-border bg-fd-card px-5 text-sm font-medium transition-colors hover:bg-fd-accent"
             >
-              <GithubIcon />
+              <GithubIcon className="size-4" />
               GitHub
               {stars !== null && stars > 0 && (
                 <span className="ml-0.5 rounded-full bg-fd-muted px-1.5 py-0.5 text-xs font-semibold">
@@ -263,7 +225,7 @@ export default async function HomePage() {
                 <span className="flex items-center justify-between">
                   <span className="text-sm font-semibold">{l.title}</span>
                   <span className="text-fd-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-fd-primary">
-                    <ArrowRight />
+                    <ArrowRightIcon className="size-3.5" />
                   </span>
                 </span>
                 <p className="text-xs leading-relaxed text-fd-muted-foreground">{l.description}</p>
@@ -287,7 +249,7 @@ export default async function HomePage() {
               href="/docs/getting-started/quickstart"
               className="inline-flex h-10 items-center gap-2 rounded-lg bg-fd-primary px-6 text-sm font-medium text-fd-primary-foreground transition-opacity hover:opacity-90"
             >
-              Get Started <ArrowRight />
+              Get Started <ArrowRightIcon className="size-3.5" />
             </Link>
             <Link
               href="/docs"

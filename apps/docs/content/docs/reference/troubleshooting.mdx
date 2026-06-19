@@ -8,7 +8,8 @@ import { Callout } from "fumadocs-ui/components/callout";
 If something isn't working, start here. This page covers the issues people run into most often.
 
 <Callout type="info">
-  When in doubt, run `npx stackkit doctor`. It checks your project's configuration and tells you exactly what's wrong.
+  When in doubt, run `npx stackkit doctor`. It checks your project's configuration and tells you
+  exactly what's wrong.
 </Callout>
 
 ## Installation and setup
@@ -83,14 +84,14 @@ npx stackkit list
 
 **Full compatibility matrix:**
 
-| Module | Next.js | Express | React |
-|--------|:-------:|:-------:|:-----:|
-| Better Auth | ✓ | ✓ | ✓ |
-| Prisma | — | ✓ | — |
-| Mongoose | — | ✓ | — |
-| Shadcn UI | ✓ | — | ✓ |
-| Cloudinary | — | ✓ | — |
-| Components | ✓ | — | ✓ |
+| Module      | Next.js | Express | React |
+| ----------- | :-----: | :-----: | :---: |
+| Better Auth |    ✓    |    ✓    |   ✓   |
+| Prisma      |    —    |    ✓    |   —   |
+| Mongoose    |    —    |    ✓    |   —   |
+| Shadcn UI   |    ✓    |    —    |   ✓   |
+| Cloudinary  |    —    |    ✓    |   —   |
+| Components  |    ✓    |    —    |   ✓   |
 
 ### A module doesn't seem to be working
 
@@ -141,6 +142,7 @@ sudo systemctl start mongod
 ```
 
 If you're using MongoDB Atlas, double-check that:
+
 - Your IP address is in the Atlas allowlist
 - Your username and password are correct in the connection string
 
@@ -161,13 +163,18 @@ BETTER_AUTH_SECRET="your-generated-secret-here"
 BETTER_AUTH_URL="http://localhost:3000"
 ```
 
+For Express projects, use `http://localhost:5000` instead.
+
 ### Better Auth: Session not persisting
 
 Make sure `BETTER_AUTH_URL` matches the exact URL you're accessing in the browser, including the port.
 
 ```bash
-# Development
+# Development (Next.js / React)
 BETTER_AUTH_URL="http://localhost:3000"
+
+# Development (Express)
+BETTER_AUTH_URL="http://localhost:5000"
 
 # Production
 BETTER_AUTH_URL="https://yourdomain.com"
@@ -186,8 +193,15 @@ cp .env.example .env
 For Next.js, make sure you restart the dev server after changing `.env` — Next.js doesn't hot-reload environment variables.
 
 <Callout type="warn">
-  Never commit your `.env` file to version control. Check that `.gitignore` includes `.env` and `.env.local`.
+  Never commit your `.env` file to version control. Check that `.gitignore` includes `.env` and
+  `.env.local`.
 </Callout>
+
+### Variables Not Loading
+
+1. Check file is named `.env` (not `.env.txt`)
+2. Restart dev server
+3. Verify no quotes around values (unless needed)
 
 ## Still stuck?
 
@@ -195,14 +209,6 @@ For Next.js, make sure you restart the dev server after changing `.env` — Next
 - Search [existing GitHub issues](https://github.com/tariqul420/stackkit/issues)
 - Open a [new issue](https://github.com/tariqul420/stackkit/issues/new?template=bug_report.md) with details about your setup and what you tried
 - Join the [Discord server](https://discord.gg/PD8XWdpA) for community help
-openssl rand -base64 32
-```
-
-### Variables Not Loading
-
-1. Check file is named `.env` (not `.env.txt`)
-2. Restart dev server
-3. Verify no quotes around values (unless needed)
 
 ## Common Questions
 
@@ -220,12 +226,6 @@ A: Prisma for flexibility (supports multiple databases), Mongoose for MongoDB-on
 
 **Q: What if my framework isn't supported?**  
 A: See [Contributing](/docs/community/contributing) to add support.
-
-## Still Need Help?
-
-1. Run diagnostics: `stackkit doctor`
-2. Check [GitHub Issues](https://github.com/tariqul420/stackkit/issues)
-3. Join [Discord](https://discord.gg/PD8XWdpA)
 
 <Callout type="info">
   Most issues are resolved by running `stackkit doctor` and following its recommendations.

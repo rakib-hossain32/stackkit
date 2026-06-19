@@ -3,7 +3,7 @@ title: doctor
 description: Diagnose your project and identify configuration issues before they cause problems.
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout';
+import { Callout } from "fumadocs-ui/components/callout";
 
 The `doctor` command inspects your project and reports on its health. Think of it as a quick sanity check — it catches the most common setup mistakes so you don't have to debug them yourself.
 
@@ -70,15 +70,16 @@ A clean report means your project is configured correctly and ready for developm
 
 ## Options
 
-| Flag | Description |
-|------|-------------|
-| `--verbose` | Print detailed information about each check |
-| `--json` | Output results as JSON (useful for CI/CD pipelines) |
-| `--strict` | Exit with a non-zero code when there are warnings (not just errors) |
+| Flag        | Description                                                         |
+| ----------- | ------------------------------------------------------------------- |
+| `--verbose` | Print detailed information about each check                         |
+| `--json`    | Output results as JSON (useful for CI/CD pipelines)                 |
+| `--strict`  | Exit with a non-zero code when there are warnings (not just errors) |
 
 ## Common use cases
 
 **After creating a project:**
+
 ```bash
 npx stackkit@latest create my-app
 cd my-app
@@ -86,12 +87,14 @@ npx stackkit doctor
 ```
 
 **After adding a module:**
+
 ```bash
 npx stackkit add
 npx stackkit doctor
 ```
 
 **In a CI pipeline:**
+
 ```bash
 npx stackkit doctor --strict --json
 ```
@@ -120,10 +123,12 @@ npx stackkit add
 Update Node.js to version 18 or higher. We recommend using a version manager like [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm).
 
 <Callout type="info">
-  If doctor shows warnings but no errors, your project will still work — warnings are informational and suggest improvements rather than blocking issues.
+  If doctor shows warnings but no errors, your project will still work — warnings are informational
+  and suggest improvements rather than blocking issues.
 </Callout>
 
 **Solution:**
+
 ```bash
 cp .env.example .env
 # Edit .env with your values
@@ -134,6 +139,7 @@ cp .env.example .env
 **Problem:** Package versions don't match requirements
 
 **Solution:**
+
 ```bash
 npm install
 ```
@@ -143,15 +149,13 @@ npm install
 **Problem:** `@prisma/client` not found
 
 **Solution:**
+
 ```bash
 npx prisma generate
 ```
 
-<Callout type="info">
-  Run `doctor` regularly to catch configuration drift.
-</Callout>
+<Callout type="info">Run `doctor` regularly to catch configuration drift.</Callout>
 
 ## Next Steps
 
 - [Troubleshooting](/docs/reference/troubleshooting) - Full issue guide
-- [Environment Variables](/docs/reference/environment-variables) - Required vars

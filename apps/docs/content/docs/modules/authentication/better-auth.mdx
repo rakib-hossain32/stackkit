@@ -112,6 +112,8 @@ BETTER_AUTH_SECRET="paste-your-generated-secret-here"
 BETTER_AUTH_URL="http://localhost:3000"
 ```
 
+For Express projects, use `http://localhost:5000`.
+
 `BETTER_AUTH_URL` is the base URL of your application. In production, this should be your actual domain.
 
 </Step>
@@ -145,7 +147,7 @@ npm run dev
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `BETTER_AUTH_SECRET` | Yes | Secret key for signing session tokens. Must be at least 32 characters. |
-| `BETTER_AUTH_URL` | Yes | Base URL of your app (e.g., `http://localhost:3000`). |
+| `BETTER_AUTH_URL` | Yes | Base URL of your app (e.g., `http://localhost:3000` for Next.js/React, `http://localhost:5000` for Express). |
 
 ## Customizing your auth setup
 

@@ -226,7 +226,6 @@ async function getProjectConfig(
   const result: Partial<ProjectConfig & { prismaProvider?: string }> = {};
 
   // small helpers to keep prompts tidy
-  type LegacyChoice = { name?: string; title?: string; value?: string };
   const promptSelect = async (
     name: string,
     message: string,
@@ -239,9 +238,7 @@ async function getProjectConfig(
 
   const loadDatabaseChoices = (): Choice[] => {
     if (discoveredModules.databases && discoveredModules.databases.length > 0) {
-      return getDatabaseChoices(discoveredModules.databases, result.framework || "").map(
-        (c: LegacyChoice) => ({ title: c.name || String(c.value), value: c.value }),
-      );
+      return getDatabaseChoices(discoveredModules.databases, result.framework || "");
     }
 
     try {
@@ -311,12 +308,7 @@ async function getProjectConfig(
   // database (skip for React and Next.js)
   if (!["react", "nextjs"].includes(result.framework || "")) {
     const dbChoices = loadDatabaseChoices();
-    const dbChoicesNormalized = dbChoices.map((c: LegacyChoice) => ({
-      title: c.name || c.title || String(c.value ?? ""),
-      value: c.value ?? String(c.title ?? ""),
-    }));
-
-    const selected = await promptSelect("database", "Select database/ORM:", dbChoicesNormalized);
+    const selected = await promptSelect("database", "Select database/ORM:", dbChoices);
     result.database = selected || "none";
   } else {
     result.database = "none";
@@ -428,13 +420,13 @@ async function getProjectConfig(
       discoveredModules.frameworks,
     );
     const authChoicesNormalized = (authChoices || []).map(
-      (c: { name?: string; value?: string; description?: string }) => ({
-        title: c.name
+      (c: { title?: string; value?: string; description?: string }) => ({
+        title: c.title
           ? c.description
-            ? `${c.name} — ${c.description}`
-            : c.name
+            ? `${c.title} — ${c.description}`
+            : c.title
           : String(c.value ?? ""),
-        value: c.value ?? String(c.name ?? ""),
+        value: c.value ?? String(c.title ?? ""),
       }),
     );
     const authResp = await prompts({

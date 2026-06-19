@@ -3,14 +3,15 @@ title: What is StackKit?
 description: Understand the design philosophy behind StackKit and how it fits into your development workflow.
 ---
 
-import { Callout } from 'fumadocs-ui/components/callout';
+import { Callout } from "fumadocs-ui/components/callout";
 
 StackKit is a **code generator** — not a framework, not a library, not a runtime dependency. It generates a complete project foundation using the tools and libraries you already know, then gets completely out of the way.
 
 When you run `stackkit create`, it asks you what you want (Next.js? Prisma? Better Auth?), creates all the files, wires the pieces together correctly, installs the dependencies, and hands you a project that's ready to go. After that, StackKit plays no further role. You work directly with Next.js, Prisma, and Better Auth — not with any StackKit layer on top.
 
 <Callout type="info">
-  Once your project is generated, you can delete StackKit entirely from your system. Your project will continue to work perfectly because it only depends on the libraries you chose.
+  Once your project is generated, you can delete StackKit entirely from your system. Your project
+  will continue to work perfectly because it only depends on the libraries you chose.
 </Callout>
 
 ## The problem StackKit solves
@@ -43,19 +44,19 @@ Templates are intentionally minimal. They give you the scaffolding and best-prac
 
 A **module** is an optional integration that gets layered on top of a template. Modules handle the boring part of "installing and configuring library X" for you.
 
-| Category | Available modules |
-|----------|------------------|
-| Database | Prisma, Mongoose |
-| Authentication | Better Auth |
-| UI Components | Shadcn UI |
-| File Storage | Cloudinary |
+| Category             | Available modules                             |
+| -------------------- | --------------------------------------------- |
+| Database             | Prisma, Mongoose                              |
+| Authentication       | Better Auth                                   |
+| UI Components        | Shadcn UI                                     |
+| File Storage         | Cloudinary                                    |
 | Pre-built Components | TiptapEditor, DataTable, SearchBar, FilterBar |
 
 When a module is installed, StackKit writes the configuration files, adds the required environment variables to `.env.example`, and installs all the necessary packages. You get a working integration, not just a bare dependency in `package.json`.
 
 ### Compatibility checking
 
-Not every module works with every framework. For example, Prisma and Mongoose are only available for Express projects right now. Shadcn UI only works with Next.js and React. StackKit knows this, and it won't let you accidentally combine incompatible things.
+Not every module works with every framework. For example, Prisma and Mongoose are only available for Express projects. Shadcn UI only works with Next.js and React. StackKit knows this, and it won't let you accidentally combine incompatible things.
 
 This is different from just reading docs. When you run `stackkit add` in an Express project, you'll only see modules that actually work with Express — no guesswork required.
 
@@ -73,6 +74,7 @@ StackKit works best when you're starting something new and want a clean, well-co
 StackKit is opinionated about project structure and module integration. If you have very specific requirements that conflict with the patterns StackKit uses, you might be better served by writing your own setup.
 
 Some situations where StackKit may not help:
+
 - You need a non-JavaScript/TypeScript project
 - You need a custom build system or bundler setup that differs significantly from the defaults
 - You're working inside a monorepo with existing conventions that must be followed
@@ -86,6 +88,7 @@ StackKit is built on top of the official CLIs and SDKs for each tool it integrat
 - **Better Auth** — Configuration follows the Better Auth documentation patterns
 
 You don't need to learn a new abstraction. Everything StackKit generates is standard code for each respective tool.
+
 - Environment variables (.env + .env.example)
 - Package scripts
 - Git-ready
@@ -93,15 +96,16 @@ You don't need to learn a new abstraction. Everything StackKit generates is stan
 
 ## Comparison
 
-| Feature | StackKit | CRA | T3 | Manual |
-|---------|----------|-----|----|----|
-| Frameworks | 3+ | 1 | 1 | Any |
-| Modular | ✓ | ✗ | Partial | ✓ |
-| Database | ✓ | ✗ | ✓ | ✓ |
-| Auth | ✓ | ✗ | ✓ | ✓ |
-| Setup Time | 2 min | 1 min | 2 min | 30+ min |
+| Feature    | StackKit | CRA   | T3      | Manual  |
+| ---------- | -------- | ----- | ------- | ------- |
+| Frameworks | 3+       | 1     | 1       | Any     |
+| Modular    | ✓        | ✗     | Partial | ✓       |
+| Database   | ✓        | ✗     | ✓       | ✓       |
+| Auth       | ✓        | ✗     | ✓       | ✓       |
+| Setup Time | 2 min    | 1 min | 2 min   | 30+ min |
 
 **Why StackKit:**
+
 - Multiple frameworks
 - Add features incrementally
 - Zero runtime dependency

@@ -21,6 +21,7 @@ import {
 import { addDependencies, installDependencies } from "../lib/pm/package-manager";
 import { detectProjectInfo, getLibPath, getRouterBasePath } from "../lib/project/detect";
 import { logger } from "../lib/ui/logger";
+import { deepMerge } from "../lib/utils/deep-merge";
 import { getPackageRoot } from "../lib/utils/package-root";
 import { CreateFilePatch, ModuleMetadata, ProjectInfo } from "../types";
 
@@ -39,8 +40,6 @@ interface AddOptions {
   install?: boolean;
   yes?: boolean;
 }
-
-type PromptChoice = { name?: string; value?: string; title?: string };
 
 export async function addCommand(module?: string, options?: AddOptions): Promise<void> {
   try {
@@ -212,20 +211,15 @@ async function getInteractiveConfig(
   const category = categoryResp.category;
 
   if (category === "database") {
-    const dbChoices: PromptChoice[] = getDatabaseChoices(
+    const dbChoices = getDatabaseChoices(
       discovered.databases || [],
       projectInfo?.framework || defaultFramework,
     );
-
-    const dbChoicesNormalized = dbChoices.map((c: PromptChoice) => ({
-      title: c.name || c.title || String(c.value ?? ""),
-      value: c.value ?? String(c.title ?? ""),
-    }));
     const dbResp = await prompts({
       type: "select",
       name: "database",
       message: "Select database:",
-      choices: dbChoicesNormalized,
+      choices: dbChoices,
     });
 
     const selectedDb = (dbResp as { database?: string }).database as string;
@@ -253,19 +247,15 @@ async function getInteractiveConfig(
     let preAddedForReturn: AddConfig | undefined;
     if (!projectInfo?.hasDatabase) {
       logger.warn("No database detected in the project. Authentication requires a database.");
-      const dbChoices: PromptChoice[] = getDatabaseChoices(
+      const dbChoices = getDatabaseChoices(
         discovered.databases || [],
         projectInfo?.framework || defaultFramework,
       );
-      const dbChoicesNormalized2 = dbChoices.map((c: PromptChoice) => ({
-        title: c.name || c.title || String(c.value ?? ""),
-        value: c.value ?? String(c.title ?? ""),
-      }));
       const dbAnswerResp = await prompts({
         type: "select",
         name: "database",
         message: "Select a database to add before authentication:",
-        choices: dbChoicesNormalized2,
+        choices: dbChoices,
       });
 
       const selectedDb = (dbAnswerResp as { database?: string }).database as string;
@@ -317,21 +307,11 @@ async function getInteractiveConfig(
       projectInfo?.framework || defaultFramework,
       dbString,
     );
-    const authChoicesNormalized = authChoices.map(
-      (c: { name?: string; value?: string; description?: string }) => ({
-        title: c.name
-          ? c.description
-            ? `${c.name} — ${c.description}`
-            : c.name
-          : String(c.value ?? ""),
-        value: c.value ?? String(c.name ?? ""),
-      }),
-    );
     const authResp = await prompts({
       type: "select",
       name: "auth",
       message: "Select authentication:",
-      choices: authChoicesNormalized,
+      choices: authChoices,
     });
 
     const selectedAuth = (authResp as { auth?: string }).auth as string;
@@ -913,41 +893,4 @@ async function applyFrameworkPatches(
       }
     }
   }
-}
-
-function deepMerge(
-  target: Record<string, unknown>,
-  source: Record<string, unknown>,
-): Record<string, unknown> {
-  const output = { ...target };
-
-  for (const key in source) {
-    if (source[key] && typeof source[key] === "object" && !Array.isArray(source[key])) {
-      if (target[key]) {
-        output[key] = deepMerge(
-          target[key] as Record<string, unknown>,
-          source[key] as Record<string, unknown>,
-        );
-      } else {
-        output[key] = source[key];
-      }
-    } else if (Array.isArray(source[key])) {
-      const targetArr = (target[key] as unknown[]) || [];
-      const sourceArr = source[key] as unknown[];
-      const merged = [...targetArr];
-      for (const item of sourceArr) {
-        if (typeof item === "object" && item !== null) {
-          const exists = merged.some((m) => JSON.stringify(m) === JSON.stringify(item));
-          if (!exists) merged.push(item);
-        } else {
-          if (!merged.includes(item)) merged.push(item);
-        }
-      }
-      output[key] = merged;
-    } else {
-      output[key] = source[key];
-    }
-  }
-
-  return output;
 }
