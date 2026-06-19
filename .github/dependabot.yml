@@ -12,8 +12,10 @@ updates:
       prefix: "chore"
       prefix-development: "chore"
     ignore:
-      - dependency-name: "@babel/core"
+      - dependency-name: "@babel/*"
         versions: [">=8"]
+      - dependency-name: "commander"
+        versions: [">=15"]
     groups:
       babel:
         patterns:
