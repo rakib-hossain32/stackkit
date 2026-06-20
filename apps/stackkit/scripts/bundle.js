@@ -40,13 +40,24 @@ const ignoreIconvPlugin = {
       contents: "module.exports = {};",
       loader: "js",
     }));
-    // Stub cli-spinners (large JSON) with a minimal spinner set
+    // Stub cli-spinners (large JSON) with a minimal spinner set.
+    // IMPORTANT: ora auto-selects `dots` when Unicode is supported and `line`
+    // when it is not (e.g. Windows cmd.exe / PowerShell without Windows Terminal,
+    // see ora/index.js spinner setter). Both MUST exist or ora throws
+    // "Cannot read properties of undefined (reading 'frames')" at spinner start.
+    // Frames mirror the real cli-spinners definitions so output looks identical.
     build.onResolve({ filter: /^cli-spinners$/ }, (args) => ({
       path: args.path,
       namespace: "empty-spinners",
     }));
     build.onLoad({ filter: /.*/, namespace: "empty-spinners" }, () => ({
-      contents: 'module.exports = { dots: { frames: [".","..","..."], interval: 80 } };',
+      contents: `module.exports = ${JSON.stringify({
+        dots: {
+          frames: ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"],
+          interval: 80,
+        },
+        line: { frames: ["-", "\\", "|", "/"], interval: 130 },
+      })};`,
       loader: "js",
     }));
     // Stub color-convert to a minimal set used by chalk
